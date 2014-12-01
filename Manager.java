@@ -27,9 +27,8 @@ public class Manager extends User
     {
         Scanner in = new Scanner(new File("reservations.txt"));
         Pattern datePatt = Pattern.compile("[0-9]{2}?/[0-9]{2}?/[0-9]{4}?");
-        
-        int i = 0;
-        while (in.hasNextLine())
+
+        while (in.hasNext())
         {
             //gets the first int in line
             int roomNumber = in.nextInt();
@@ -42,13 +41,11 @@ public class Manager extends User
             //takes the next date
             String next = in.next(datePatt);
             Calendar start = stringToDate(next);
+            next = in.next();
             next = in.next(datePatt);
             Calendar end = stringToDate(next);
             Event e = new Event(start, end, roomNumber, temp);
             temp.addEvent(e);
-            
-            System.out.println(i);
-            i++;
         }
     }
 

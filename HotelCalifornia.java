@@ -60,26 +60,29 @@ public class HotelCalifornia
         populateRooms();
         gui.main(args);
         
-//        Guest one = new Guest("Anthony");
-//        Guest two = new Guest("Stephen");
-//        Guest three = new Guest("Johan");
-//        
-//        addAccount(one);
-//        addAccount(two);
-//        addAccount(three);
-//        
-//        currentUser = one;
-//        one.addEvent("01/01/2011", "01/02/2011", 2); 
-//        
-//        currentUser = two;
-//        two.addEvent("01/03/2011", "01/05/2011", 2);
-//        
-//        currentUser = three;
-//        three.addEvent("02/05/2011", "02/08/2011", 3);
-//        three.addEvent("01/03/2011", "01/05/2013", 4);
+        Guest one = new Guest("Anthony");
+        Guest two = new Guest("Stephen");
+        Guest three = new Guest("Johan");
+        
+        addAccount(one);
+        addAccount(two);
+        addAccount(three);
+        
+        currentUser = one;
+        one.addEvent("01/01/2011", "01/02/2011", 2); 
+        
+        currentUser = two;
+        two.addEvent("01/03/2011", "01/05/2011", 2);
+        
+        currentUser = three;
+        three.addEvent("02/05/2011", "02/08/2011", 3);
+        three.addEvent("01/03/2011", "01/05/2013", 4);
+        
+        manager.save();
         
         manager.load();
-        
+  
+        //for testing save and load functions
         for (int i = 0; i < 20; i++)
         {
             System.out.println(HotelCalifornia.rooms[i].events.toString());
