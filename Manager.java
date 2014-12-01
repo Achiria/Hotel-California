@@ -28,13 +28,27 @@ public class Manager extends User
         Scanner in = new Scanner(new File("reservations.txt"));
         Pattern datePatt = Pattern.compile("[0-9]{2}?/[0-9]{2}?/[0-9]{4}?");
         
-        while (in.hasNext(datePatt))
+        int i = 0;
+        while (in.hasNextLine())
         {
+            //gets the first int in line
             int roomNumber = in.nextInt();
+            //gets the first string (user name)
+            String id = in.next();
+            //creates a user based on the name it got
+            Guest temp = new Guest(id);
+            //adds the user to the list of users
+            HotelCalifornia.addAccount(temp);
+            //takes the next date
             String next = in.next(datePatt);
             Calendar start = stringToDate(next);
+            next = in.next(datePatt);
             Calendar end = stringToDate(next);
-            Event e = new Event(start, end, roomNumber);
+            Event e = new Event(start, end, roomNumber, temp);
+            temp.addEvent(e);
+            
+            System.out.println(i);
+            i++;
         }
     }
 
@@ -46,10 +60,12 @@ public class Manager extends User
 
         for (int i = 0; i < 20; i++)
         {
-            int j = 0; 
-            out.println(HotelCalifornia.rooms[i].events.toString());
-        }
+            for (int j = 0; j < HotelCalifornia.rooms[i].events.size(); j++)
+            {
+                out.println(HotelCalifornia.rooms[i].events.get(j).toString());
+            }
 
+        }
         out.close();
     }
 }

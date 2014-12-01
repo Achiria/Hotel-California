@@ -1,3 +1,4 @@
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,51 +13,66 @@ import java.util.*;
  * @author Anthony
  */
 public class Guest extends User
-{    
+{
     public Guest(String id)
     {
+        for (User userAccount : HotelCalifornia.userAccounts)
+        {
+            if (id.equals(userAccount))
+            {
+                System.out.println("That user name is already taken");
+                return;
+            }
+        }
         userid = id;
     }
-    
-    //need to add parser
+
     public void addEvent(String start, String end, int roomNumber) throws ParseException
     {
         Calendar s = stringToDate(start);
         Calendar e = stringToDate(end);
-        Event newEvent = new Event(s, e, roomNumber);
-        
+        Event newEvent = new Event(s, e, roomNumber, HotelCalifornia.currentUser);
+
         events.add(newEvent);
-        
+
         //the exceptions will be caught in the 
         HotelCalifornia.rooms[roomNumber].addEvent(newEvent);
     }
     
+    public void addEvent(Event toAdd)
+    {
+        events.add(toAdd);
+        HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
+    }
+
     public void deleteEvent(String input) throws ParseException
     {
-        while (true) {
+        while (true)
+        {
             Event t = find(input);
-            if (t == null) {
+            if (t == null)
+            {
                 break;
             }
             events.remove(t);
         }
     }
-    
-    
-    public boolean checkOverstay(String start, String end) throws ParseException {
-    int stay = 0;
-    Calendar s = stringToDate(start);
-    Calendar e = stringToDate(end);
-    Calendar date = (Calendar) s.clone();
-    while(date.before(e))
+
+    public boolean checkOverstay(String start, String end) throws ParseException
     {
-        date.add(Calendar.DAY_OF_MONTH, 1);
-        stay++;
+        int stay = 0;
+        Calendar s = stringToDate(start);
+        Calendar e = stringToDate(end);
+        Calendar date = (Calendar) s.clone();
+        while (date.before(e))
+        {
+            date.add(Calendar.DAY_OF_MONTH, 1);
+            stay++;
+        }
+
+        return stay < 60;
     }
 
-     return stay<60;
-    }
-    
     public ArrayList getEvents()
     {
         return events;
