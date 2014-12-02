@@ -35,24 +35,19 @@ public class HotelCalifornia
             rooms[i] = new Luxurious(i);
         }
     }
-//    public User getUser(String id)
-//    {
-//        boolean found = false;
-//        
-//        int i = 0;
-//        if (userAccounts.get(i).userid.equals(id))
-//        {
-//            return userAccounts.get(i);
-//        }
-//        
-//        else 
-//        {
-//            i++;
-//        }
-//        
-//        System.out.println("Could not find users in load file.");
-//        return null;
-//    }
+    
+    public static void clearEvents()
+    {
+        for (Room room : rooms)
+        {
+            room.events.clear();
+        }
+    }
+    
+    public static void clearUsers()
+    {
+        userAccounts.clear();
+    }
     
     public static void main(String[] args) throws ParseException, IOException
     {

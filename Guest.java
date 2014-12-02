@@ -1,7 +1,7 @@
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
+import java.lang.IllegalArgumentException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,14 +14,22 @@ import java.util.*;
  */
 public class Guest extends User
 {
+
     public Guest(String id)
     {
-        for (User userAccount : HotelCalifornia.userAccounts)
+        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++)
         {
-            if (id.equals(userAccount))
+            try
             {
-                System.out.println("That user name is already taken");
-                return;
+                if (id.equals(HotelCalifornia.userAccounts.get(i).userid))
+                {
+                    throw new IllegalArgumentException();
+                }
+            }
+            
+            catch (IllegalArgumentException e)
+            {
+                System.err.println("That name is already taken.");
             }
         }
         userid = id;
@@ -38,23 +46,21 @@ public class Guest extends User
         //the exceptions will be caught in the 
         HotelCalifornia.rooms[roomNumber].addEvent(newEvent);
     }
-    
+
     public void addEvent(Event toAdd)
     {
         events.add(toAdd);
         HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
     }
 
-    public void deleteEvent(String input) throws ParseException
+    public void deleteEvent(Event e) throws ParseException
     {
-        while (true)
+        for (int i = 0; i < events.size(); i++)
         {
-            Event t = find(input);
-            if (t == null)
+            if (events.get(i).equals(e))
             {
-                break;
+                events.remove(events.get(i));
             }
-            events.remove(t);
         }
     }
 

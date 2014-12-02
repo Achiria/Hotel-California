@@ -26,6 +26,40 @@ public class Manager extends User
 
     public void load() throws FileNotFoundException, ParseException
     {
+        int emptyCounter = 0;
+        for (int i = 0; i < HotelCalifornia.rooms.length; i++)
+        {
+            if (HotelCalifornia.rooms[i].events.isEmpty())
+            {
+                emptyCounter++;
+            }
+        }
+        
+        if (emptyCounter < 20)
+        {
+            System.err.println("You have data currently stored, loading this file will erase it. Continue? Y/N: ");
+            Scanner in = new Scanner(System.in);
+            
+            boolean answered = false;
+            while (!answered)
+            {
+                String answer = in.next();
+
+                switch (answer)
+                {
+                    case "Y":
+                        answered = true;
+                        HotelCalifornia.clearEvents();
+                        HotelCalifornia.clearUsers();
+                        break;
+                    case "N":
+                        return;
+                    default:
+                        System.out.println("That command was not recognized, please try again: ");
+                }
+            }            
+        }
+        
         Scanner in = new Scanner(new File("reservations.txt"));
         Pattern datePatt = Pattern.compile("[0-9]{2}?/[0-9]{2}?/[0-9]{4}?");
 
@@ -41,11 +75,17 @@ public class Manager extends User
             HotelCalifornia.addAccount(temp);
             //takes the next date
             String next = in.next(datePatt);
+            //creates a calendar based on the date it got
             Calendar start = stringToDate(next);
+            //takes the '-'
             next = in.next();
+            //tekes the next date
             next = in.next(datePatt);
+            //creates a calendar based on the date it got
             Calendar end = stringToDate(next);
+            //creates a calendar based on all the information it got
             Event e = new Event(start, end, roomNumber, temp);
+            //adds te event it created to the user it created
             temp.addEvent(e);
         }
     }
