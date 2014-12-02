@@ -29,7 +29,7 @@ public class Manager extends User
         int emptyCounter = 0;
         for (int i = 0; i < HotelCalifornia.rooms.length; i++)
         {
-            if (HotelCalifornia.rooms[i].events.isEmpty())
+            if (HotelCalifornia.rooms[i].getEvents().isEmpty())
             {
                 emptyCounter++;
             }
@@ -70,7 +70,7 @@ public class Manager extends User
             //gets the first string (user name)
             String id = in.next();
             //creates a user based on the name it got
-            Guest temp = new Guest(id);
+            Guest temp = new Guest(id, "load");
             //adds the user to the list of users
             HotelCalifornia.addAccount(temp);
             //takes the next date
@@ -98,9 +98,9 @@ public class Manager extends User
 
         for (int i = 0; i < 20; i++)
         {
-            for (int j = 0; j < HotelCalifornia.rooms[i].events.size(); j++)
+            for (int j = 0; j < HotelCalifornia.rooms[i].getEvents().size(); j++)
             {
-                out.println(HotelCalifornia.rooms[i].events.get(j).toString());
+                out.println(HotelCalifornia.rooms[i].getEvents().get(j).toString());
             }
 
         }

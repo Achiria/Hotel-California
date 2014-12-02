@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Room
 {
     int PRICE,roomNumber;
-    ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
     
     public int getPrice()
     {
@@ -28,5 +28,15 @@ public class Room
     public void addEvent(Event e)
     {
         events.add(e);
+    }
+    
+    public ArrayList getEvents()
+    {
+        return events;
+    }
+    
+    public void clearEvents()
+    {
+        events.clear();   
     }
 }

@@ -33,6 +33,25 @@ public class Guest extends User
         }
         userid = id;
     }
+    
+    public Guest(String id, String load)
+    {
+        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++)
+        {
+            try
+            {
+                if (id.equals(HotelCalifornia.userAccounts.get(i).userid))
+                {
+                    throw new IllegalArgumentException();
+                }
+            }
+            
+            catch (IllegalArgumentException e)
+            {
+            }
+        }
+        userid = id;
+    }
 
     public void addEvent(String start, String end, int roomNumber) throws ParseException
     {

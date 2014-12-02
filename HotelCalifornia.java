@@ -40,7 +40,7 @@ public class HotelCalifornia
     {
         for (Room room : rooms)
         {
-            room.events.clear();
+            room.clearEvents();
         }
     }
     
@@ -107,7 +107,7 @@ public class HotelCalifornia
         //for testing save and load functions
         for (int i = 0; i < 20; i++)
         {
-            System.out.println(HotelCalifornia.rooms[i].events.toString());
+            System.out.println(HotelCalifornia.rooms[i].getEvents().toString());
         }
     }
 }
