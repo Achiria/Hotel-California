@@ -43,16 +43,16 @@ public class Manager extends User
             boolean answered = false;
             while (!answered)
             {
-                String answer = in.next();
+                String answer = in.next().toLowerCase();
 
                 switch (answer)
                 {
-                    case "Y":
+                    case "y":
                         answered = true;
                         HotelCalifornia.clearEvents();
                         HotelCalifornia.clearUsers();
                         break;
-                    case "N":
+                    case "n":
                         return;
                     default:
                         System.out.println("That command was not recognized, please try again: ");
