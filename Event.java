@@ -22,7 +22,7 @@ public class Event
         return checkin;
     }
 
-    public Calendar getCeckout()
+    public Calendar getCheckout()
     {
         return checkout;
     }

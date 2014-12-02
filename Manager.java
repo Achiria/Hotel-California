@@ -2,6 +2,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -64,5 +65,33 @@ public class Manager extends User
 
         }
         out.close();
+    }
+
+    public String displayEventsOnDay(String date) throws ParseException
+    {
+        Calendar d = stringToDate(date);
+        String answer = "";
+
+        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++)
+        {
+            ArrayList<Event> toGet = HotelCalifornia.userAccounts.get(i).getEvents();
+            for (int j = 0; j < toGet.size(); j++)
+            {
+
+                Calendar start = toGet.get(j).getCheckin();
+                Calendar end = toGet.get(j).getCheckout();
+                if (isBetween(start, end, d))
+                {
+                    answer += toGet.get(j).toString() + "\n";
+
+                }
+            }
+        }
+        return answer;
+    }
+
+    public boolean isBetween(Calendar start, Calendar end, Calendar date)
+    {
+        return date.after(start) && date.before(end);
     }
 }

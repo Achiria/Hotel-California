@@ -40,5 +40,10 @@ public class User
         }
         return null;
     }
+
+    public ArrayList getEvents()
+    {
+        return events;
+    }
     
 }
