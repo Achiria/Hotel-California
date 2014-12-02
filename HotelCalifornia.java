@@ -49,11 +49,38 @@ public class HotelCalifornia
         userAccounts.clear();
     }
     
+    public static void login(String id)
+    {
+        for (User userAccount : userAccounts)
+        {
+            if (userAccount.userid.equals(id))
+            {
+                currentUser = userAccount;
+                return;
+            }
+        }
+        
+        System.err.println("That user does not exist. Capitalizaton matters.");
+    }
+    
+    public static void login(User user)
+    {
+        for (User userAccount : userAccounts)
+        {
+            if (userAccount.equals(user))
+            {
+                currentUser = userAccount;
+                return;
+            }
+        }
+        
+        System.err.println("That user does not exist. Capitalizaton matters.");
+    }
+    
     public static void main(String[] args) throws ParseException, IOException
     {
         Manager manager = new Manager();
         populateRooms();
-        gui.main(args);
         
         Guest one = new Guest("Anthony");
         Guest two = new Guest("Stephen");
@@ -63,13 +90,13 @@ public class HotelCalifornia
         addAccount(two);
         addAccount(three);
         
-        currentUser = one;
+        login(one);
         one.addEvent("01/01/2011", "01/02/2011", 2); 
         
-        currentUser = two;
+        login(two); 
         two.addEvent("01/03/2011", "01/05/2011", 2);
         
-        currentUser = three;
+        login(three);
         three.addEvent("02/05/2011", "02/08/2011", 3);
         three.addEvent("01/03/2011", "01/05/2013", 4);
         
