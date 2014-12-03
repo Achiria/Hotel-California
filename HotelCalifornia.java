@@ -23,6 +23,7 @@ public class HotelCalifornia
     {
         if (newUser.userid.equals("administrator"))
         {
+            userAccounts.add(newUser);
             return;
         }
         userAccounts.add(newUser);
@@ -68,7 +69,7 @@ public class HotelCalifornia
         }
        
         JOptionPane.showMessageDialog(LoginRegistration.panel,
-        "That is not a registered user. Capitalization matters.",
+        "That is not a registered user.",
         "Inane error",
         JOptionPane.ERROR_MESSAGE);
         
