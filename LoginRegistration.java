@@ -79,7 +79,7 @@ public class LoginRegistration extends JFrame
         {
             String name2 = t2.getText();
             Guest newUser = new Guest(name2);
-            HotelCalifornia.addAccount(newUser);
+            t2.setText("");
         });
 
         setLocationRelativeTo(null);

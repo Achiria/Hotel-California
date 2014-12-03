@@ -21,7 +21,13 @@ public class HotelCalifornia
        
     public static void addAccount(User newUser)
     {
+        if (newUser.userid.equals("administrator"))
+        {
+            return;
+        }
         userAccounts.add(newUser);
+        JOptionPane.showMessageDialog(LoginRegistration.panel,
+        "User created.");
     }
     
     public static void populateRooms()

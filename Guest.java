@@ -33,9 +33,11 @@ public class Guest extends User
                 "That name is already taken",
                 "Inane error",
                 JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
         userid = id;
+        HotelCalifornia.addAccount(this);
     }
     
     public Guest(String id, String load)
