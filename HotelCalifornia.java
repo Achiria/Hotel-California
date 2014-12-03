@@ -60,6 +60,8 @@ public class HotelCalifornia
             }
         }
         
+        
+        
         System.err.println("That user does not exist. Capitalizaton matters.");
     }
     
