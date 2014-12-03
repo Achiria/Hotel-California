@@ -1,6 +1,7 @@
 import java.text.ParseException;
 import java.util.*;
 import java.lang.IllegalArgumentException;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,7 +29,10 @@ public class Guest extends User
             
             catch (IllegalArgumentException e)
             {
-                System.err.println("That name is already taken.");
+                JOptionPane.showMessageDialog(LoginRegistration.panel,
+                "That name is already taken",
+                "Inane error",
+                JOptionPane.ERROR_MESSAGE);
             }
         }
         userid = id;
@@ -42,7 +46,10 @@ public class Guest extends User
             {
                 if (id.equals(HotelCalifornia.userAccounts.get(i).userid))
                 {
-                    throw new IllegalArgumentException();
+                    JOptionPane.showMessageDialog(LoginRegistration.panel,
+                    "That name is already taken",
+                    "Inane error",
+                    JOptionPane.ERROR_MESSAGE);
                 }
             }
             

@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +24,7 @@ public class HotelCalifornia
         userAccounts.add(newUser);
     }
     
-    private static void populateRooms()
+    public static void populateRooms()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -49,20 +50,23 @@ public class HotelCalifornia
         userAccounts.clear();
     }
     
-    public static void login(String id)
+    public static boolean login(String id)
     {
         for (User userAccount : userAccounts)
         {
             if (userAccount.userid.equals(id))
             {
                 currentUser = userAccount;
-                return;
+                return true;
             }
         }
+       
+        JOptionPane.showMessageDialog(LoginRegistration.panel,
+        "That is not a registered user. Capitalization matters.",
+        "Inane error",
+        JOptionPane.ERROR_MESSAGE);
         
-        
-        
-        System.err.println("That user does not exist. Capitalizaton matters.");
+        return false;
     }
     
     public static void login(User user)
@@ -79,37 +83,37 @@ public class HotelCalifornia
         System.err.println("That user does not exist. Capitalizaton matters.");
     }
     
-    public static void main(String[] args) throws ParseException, IOException
-    {
-        Manager manager = new Manager();
-        populateRooms();
-        
-        Guest one = new Guest("Anthony");
-        Guest two = new Guest("Stephen");
-        Guest three = new Guest("Johan");
-        
-        addAccount(one);
-        addAccount(two);
-        addAccount(three);
-        
-        login(one);
-        one.addEvent("01/01/2011", "01/02/2011", 2); 
-        
-        login(two); 
-        two.addEvent("01/03/2011", "01/05/2011", 2);
-        
-        login(three);
-        three.addEvent("02/05/2011", "02/08/2011", 3);
-        three.addEvent("01/03/2011", "01/05/2013", 4);
-        
-        manager.save();
-        
-        manager.load();
-  
-        //for testing save and load functions
-        for (int i = 0; i < 20; i++)
-        {
-            System.out.println(HotelCalifornia.rooms[i].getEvents().toString());
-        }
-    }
+//    public static void main(String[] args) throws ParseException, IOException
+//    {
+//        Manager manager = new Manager();
+//        populateRooms();
+//        
+//        Guest one = new Guest("Anthony");
+//        Guest two = new Guest("Stephen");
+//        Guest three = new Guest("Johan");
+//        
+//        addAccount(one);
+//        addAccount(two);
+//        addAccount(three);
+//        
+//        login(one);
+//        one.addEvent("01/01/2011", "01/02/2011", 2); 
+//        
+//        login(two); 
+//        two.addEvent("01/03/2011", "01/05/2011", 2);
+//        
+//        login(three);
+//        three.addEvent("02/05/2011", "02/08/2011", 3);
+//        three.addEvent("01/03/2011", "01/05/2013", 4);
+//        
+//        manager.save();
+//        
+//        manager.load();
+//  
+//        //for testing save and load functions
+//        for (int i = 0; i < 20; i++)
+//        {
+//            System.out.println(HotelCalifornia.rooms[i].getEvents().toString());
+//        }
+//    }
 }
