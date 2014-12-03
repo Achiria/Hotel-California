@@ -11,6 +11,7 @@ public class LoginRegistration extends JFrame
     public static void main(String[] args)
     {
         Manager manager = new Manager();
+        HotelCalifornia.addAccount(manager);
         HotelCalifornia.populateRooms();
         new LoginRegistration();
     }
@@ -56,21 +57,29 @@ public class LoginRegistration extends JFrame
 
         this.add(panel);
 
-        b1.addActionListener(new ActionListener()
+        b1.addActionListener((ActionEvent e) ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            String name1 = t1.getText();
+            boolean result = HotelCalifornia.login(name1);
+            if (result)
             {
-                String name = t1.getText();
-                boolean result = HotelCalifornia.login(name);
-
-                if (result)
+                if (name1.equals("administrator"))
+                {
+                }
+                else
                 {
                     MakeReservation mR = new MakeReservation();
                     mR.setVisible(true);
                     dispose();
                 }
             }
+        });
+        
+        b2.addActionListener((ActionEvent e) ->
+        {
+            String name2 = t2.getText();
+            Guest newUser = new Guest(name2);
+            HotelCalifornia.addAccount(newUser);
         });
 
         setLocationRelativeTo(null);

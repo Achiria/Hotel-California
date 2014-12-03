@@ -80,7 +80,10 @@ public class HotelCalifornia
             }
         }
         
-        System.err.println("That user does not exist. Capitalizaton matters.");
+        JOptionPane.showMessageDialog(LoginRegistration.panel,
+        "That is not a registered user. Capitalization matters.",
+        "Inane error",
+        JOptionPane.ERROR_MESSAGE);
     }
     
 //    public static void main(String[] args) throws ParseException, IOException
