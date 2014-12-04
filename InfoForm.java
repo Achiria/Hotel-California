@@ -1,20 +1,43 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class InfoForm extends JFrame
 {
-   public static void main(String[] args)
-   {
-      new InfoForm();
-   }
+//   public static void main(String[] args)
+//   {
+//      new InfoForm();
+//   }
    
-   public InfoForm()
+   public InfoForm(final String currentUser)
    {
       super("Information Form");
       
       setSize(300, 200);
       setResizable(false);
-      setDefaultCloseOperation(EXIT_ON_CLOSE);
+      setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      WindowListener exitListener = new WindowAdapter() 
+      {
+            @Override
+            public void windowClosing(WindowEvent e) 
+            {
+                new ReservationsFrame(currentUser);
+                dispose();
+            }
+        };
+      addWindowListener(exitListener);
       
       JPanel panel = new JPanel();
 //      panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -44,6 +67,27 @@ public class InfoForm extends JFrame
       panel.add(b1);
       b2.setBounds(190, 100, 90, 30);
       panel.add(b2);
+      
+      b1.addActionListener(new ActionListener() 
+      {
+
+         @Override
+         public void actionPerformed(ActionEvent e) 
+         {
+            new LuxuriousRoomsFrame(currentUser);
+            dispose();
+         }
+      });
+      
+      b2.addActionListener(new ActionListener() 
+      {
+         @Override
+         public void actionPerformed(ActionEvent e) 
+         {
+            new EconomicRoomsFrame(currentUser);
+            dispose();
+         }
+      });
       
       this.add(panel);
       

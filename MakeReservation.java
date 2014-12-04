@@ -34,7 +34,7 @@ public class MakeReservation extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            InfoForm form = new InfoForm();
+            InfoForm form = new InfoForm(HotelCalifornia.currentUser.userid);
             form.setVisible(true);
             dispose();
          }
