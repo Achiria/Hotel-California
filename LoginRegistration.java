@@ -1,16 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
 
 public class LoginRegistration extends JFrame
 {
-   static JPanel panel = new JPanel();
+   JPanel panel = new JPanel();
    
    public static void main(String[] args)
    {
@@ -88,15 +84,23 @@ public class LoginRegistration extends JFrame
                if (s.equals(loginID))
                {
                   b = true;
-                  MakeReservation mR =new MakeReservation();
-                  mR.setVisible(true);
+                  new ReservationsFrame(loginID);
+//                  mR.setVisible(true);
                   dispose();
                }
             }  
+            if (loginID.equals("admin"))
+            {
+               b = true;
+               new AdminCalendarFrame();
+               dispose();
+            }
             if (b == false)
             {
                JOptionPane.showMessageDialog(null, "Invalid ID.");
             }
+            
+            
          }
       });
       
@@ -108,18 +112,23 @@ public class LoginRegistration extends JFrame
             String registrationID = t2.getText();
             try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("userIDs.txt", true)))) 
             {
-               if (!registrationID.isEmpty())
+               if (registrationID.equals("admin"))
+               {
+                  JOptionPane.showMessageDialog(null, "Invalid ID.");
+               }
+               if (!registrationID.isEmpty() && !registrationID.equals("admin"))
                {
                   out.println(registrationID);
                   JOptionPane.showMessageDialog(null, "Registered.");
+                  dispose();
+                  new LoginRegistration();
                }
             }
             catch (IOException ex) 
             {
     
             }
-            dispose();
-            new LoginRegistration();
+            
          }
       });
 

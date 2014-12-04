@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReservationsFrame extends JFrame
 {
@@ -47,7 +50,11 @@ public class ReservationsFrame extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            new InfoForm(currentUser);
+              try {
+                  new InfoForm(currentUser);
+              } catch (ParseException ex) {
+//                  Logger.getLogger(ReservationsFrame.class.getName()).log(Level.SEVERE, null, ex);
+              }
             dispose();
          }
       });

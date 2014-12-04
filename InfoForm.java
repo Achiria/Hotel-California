@@ -1,18 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.event.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
 public class InfoForm extends JFrame
 {
@@ -21,7 +12,7 @@ public class InfoForm extends JFrame
 //      new InfoForm();
 //   }
    
-   public InfoForm(final String currentUser)
+   public InfoForm(final String currentUser) throws ParseException
    {
       super("Information Form");
       
@@ -44,11 +35,14 @@ public class InfoForm extends JFrame
 //      panel.setLayout(new GridLayout());
       panel.setLayout(null);
       
+      Date d1 = new Date();
+      SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+     
       JLabel l1 = new JLabel("Check-in:");
       JLabel l2 = new JLabel("Check-out:");
       JLabel l3 = new JLabel("Room type:");
-      JTextField t1 = new JTextField();
-      JTextField t2 = new JTextField();
+      final JTextField t1 = new JTextField(sdf.format(d1));
+      final JTextField t2 = new JTextField();
       
       JButton b1 = new JButton("$200");
       JButton b2 = new JButton("$80");
@@ -70,22 +64,162 @@ public class InfoForm extends JFrame
       
       b1.addActionListener(new ActionListener() 
       {
-
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            new LuxuriousRoomsFrame(currentUser);
-            dispose();
+            boolean valid1 = false;
+            boolean valid2 = false;
+
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            df.setLenient(false);
+
+            Date today = null;
+            try 
+            {
+               today = df.parse(df.format(new Date()));
+            } 
+            catch (ParseException ex) 
+            {
+
+            }
+
+            Date checkIn = new Date();
+            try
+            {
+               checkIn = df.parse(t1.getText());
+               if (checkIn.after(today) || checkIn.equals(today))
+               {
+                  valid1 = true;
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(null, "Invalid check-in date.");
+               }
+            }
+            catch(ParseException pe)
+            {
+               JOptionPane.showMessageDialog(null, "Invalid check-in date.");
+            }
+
+
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(checkIn);
+            cal.add(Calendar.DATE, 61);
+            String output = df.format(cal.getTime());
+            Date sixtyFromCheckIn = null;
+            try 
+            {
+               sixtyFromCheckIn = df.parse(output);
+            } 
+            catch (ParseException ex) 
+            {
+               
+            }
+
+            Date checkOut = new Date();
+            try
+            {
+               checkOut = df.parse(t2.getText());
+
+               if (checkOut.after(checkIn) && checkOut.before(sixtyFromCheckIn))
+               {
+                  valid2 = true;
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(null, "Invalid check-out date.");
+               }
+            }
+            catch(ParseException pe)
+            {
+               JOptionPane.showMessageDialog(null, "Invalid check-out date.");
+            }
+            
+            if (valid1== true && valid2 == true)
+            {
+               new LuxuriousRoomsFrame(currentUser);
+               dispose();
+            }
          }
       });
-      
+
       b2.addActionListener(new ActionListener() 
       {
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            new EconomicRoomsFrame(currentUser);
-            dispose();
+            boolean valid1 = false;
+            boolean valid2 = false;
+
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            df.setLenient(false);
+
+            Date today = null;
+            try 
+            {
+               today = df.parse(df.format(new Date()));
+            } 
+            catch (ParseException ex) 
+            {
+
+            }
+
+            Date checkIn = new Date();
+            try
+            {
+               checkIn = df.parse(t1.getText());
+               if (checkIn.after(today) || checkIn.equals(today))
+               {
+                  valid1 = true;
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(null, "Invalid check-in date.");
+               }
+            }
+            catch(ParseException pe)
+            {
+               JOptionPane.showMessageDialog(null, "Invalid check-in date.");
+            }
+
+
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(checkIn);
+            cal.add(Calendar.DATE, 61);
+            String output = df.format(cal.getTime());
+            Date sixtyFromCheckIn = null;
+            try 
+            {
+               sixtyFromCheckIn = df.parse(output);
+            } catch (ParseException ex) 
+            {
+               
+            }
+
+            Date checkOut = new Date();
+            try
+            {
+               checkOut = df.parse(t2.getText());
+
+               if (checkOut.after(checkIn) && checkOut.before(sixtyFromCheckIn))
+               {
+                  valid2 = true;
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(null, "Invalid check-out date.");
+               }
+            }
+            catch(ParseException pe)
+            {
+               JOptionPane.showMessageDialog(null, "Invalid check-out date.");
+            }
+            
+            if (valid1== true && valid2 == true)
+            {
+               new EconomicRoomsFrame(currentUser);
+               dispose();
+            }
          }
       });
       
