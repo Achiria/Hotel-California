@@ -15,15 +15,15 @@ import java.lang.IllegalArgumentException;
 public class Guest extends User {
 
     public Guest(String id) {
-        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
-            try {
-                if (id.equals(HotelCalifornia.userAccounts.get(i).userid)) {
-                    throw new IllegalArgumentException();
-                }
-            } catch (IllegalArgumentException e) {
-                System.err.println("That name is already taken.");
-            }
-        }
+//        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
+//            try {
+//                if (id.equals(HotelCalifornia.userAccounts.get(i).userid)) {
+//                    throw new IllegalArgumentException();
+//                }
+//            } catch (IllegalArgumentException e) {
+//                System.err.println("That name is already taken.");
+//            }
+//        }
         userid = id;
     }
 
@@ -43,13 +43,12 @@ public class Guest extends User {
         Calendar s = stringToDate(start);
         Calendar e = stringToDate(end);
         Event newEvent = new Event(s, e, roomNumber, HotelCalifornia.currentUser);
-        tempEvents.add(newEvent);
-//the exceptions will be caught in the
+        events.add(newEvent);
         HotelCalifornia.rooms[roomNumber].addEvent(newEvent);
     }
 
     public void addEvent(Event toAdd) {
-        tempEvents.add(toAdd);
+        events.add(toAdd);
         HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
     }
 
@@ -57,12 +56,6 @@ public class Guest extends User {
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).equals(e)) {
                 events.remove(events.get(i));
-            }
-        }
-        
-        for (int i = 0; i < tempEvents.size(); i++) {
-            if (tempEvents.get(i).equals(e)) {
-                tempEvents.remove(tempEvents.get(i));
             }
         }
     }
@@ -77,5 +70,9 @@ public class Guest extends User {
             stay++;
         }
         return stay < 60;
+    }
+
+    public ArrayList getEvents() {
+        return events;
     }
 }

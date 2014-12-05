@@ -3,6 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -30,12 +33,25 @@ public class ManagerCalendar {
         this.m = m;
         JPanel cal = mCalendar();
         JScrollPane eventDisplay = eventDisplay();
-        JFrame frame = new JFrame();
+        final JFrame frame = new JFrame();
         eventDisplay = eventDisplay();
         frame.add(calendarShift(), BorderLayout.NORTH);
         frame.add(cal, BorderLayout.WEST);
         frame.add(eventDisplay, BorderLayout.EAST);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        WindowListener exitListener = new WindowAdapter() 
+        {
+              @Override
+              public void windowClosing(WindowEvent e) 
+              {
+                  new LoginRegistration();
+                  frame.dispose();
+              }
+          };
+        frame.addWindowListener(exitListener);
+        
         frame.pack();
         frame.setVisible(true);
     }

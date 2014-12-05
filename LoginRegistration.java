@@ -2,16 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginRegistration extends JFrame
 {
-   JPanel panel = new JPanel();
+//   JPanel panel = new JPanel();
    
-   public static void main(String[] args)
-   {
-      new LoginRegistration();
-   }
+//   public static void main(String[] args)
+//   {
+//      new LoginRegistration();
+//   }
    
    public LoginRegistration()
    {
@@ -61,7 +64,7 @@ public class LoginRegistration extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            ArrayList<String> ids = new ArrayList<String>();
+//            ArrayList<String> ids = new ArrayList<String>(); // change
             String loginID = t1.getText();
             try
             {
@@ -69,7 +72,8 @@ public class LoginRegistration extends JFrame
                
                while (s.hasNext())
                {
-                   ids.add(s.next());
+//                   ids.add(s.next());
+                   HotelCalifornia.userAccounts.add(new Guest(s.next()));
                }
                s.close();
             }
@@ -79,12 +83,13 @@ public class LoginRegistration extends JFrame
             }
 
             boolean b = false;
-            for (String s : ids)
+            for (User s : HotelCalifornia.userAccounts)
             {
-               if (s.equals(loginID))
+               if (s.userid.equals(loginID))
                {
                   b = true;
                   new ReservationsFrame(loginID);
+                  HotelCalifornia.currentUser = s;
 //                  mR.setVisible(true);
                   dispose();
                }
@@ -92,7 +97,12 @@ public class LoginRegistration extends JFrame
             if (loginID.equals("admin"))
             {
                b = true;
-               new AdminCalendarFrame();
+//               new AdminCalendarFrame();
+                 try {
+                     new ManagerCalendar(HotelCalifornia.manager);
+                 } catch (ParseException ex) {
+//                     Logger.getLogger(LoginRegistration.class.getName()).log(Level.SEVERE, null, ex);
+                 }
                dispose();
             }
             if (b == false)

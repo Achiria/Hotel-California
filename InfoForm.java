@@ -137,7 +137,7 @@ public class InfoForm extends JFrame
             
             if (valid1== true && valid2 == true)
             {
-               new LuxuriousRoomsFrame(currentUser);
+               new LuxuriousRoomsFrame(currentUser, t1.getText(), t2.getText());
                dispose();
             }
          }

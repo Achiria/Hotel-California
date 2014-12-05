@@ -1,9 +1,13 @@
 
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,39 +24,23 @@ import javax.swing.JPanel;
 public class HotelCalifornia {
 
     static ArrayList<User> userAccounts = new ArrayList<>();
+    
+    public static ArrayList<Integer> luxuriousRooms = new ArrayList<>();
+    public static ArrayList<Reservation> reservations = new ArrayList<>();
+    
     static Room[] rooms = new Room[20];
     static User currentUser;
-
+    static Manager manager;
+    
     public static void main(String[] args) throws ParseException, IOException {
+        for (int i = 11; i < 21; i++)
+      {
+         luxuriousRooms.add(i);
+      }
+         
+        manager = new Manager();
         
-        
-        Manager manager = new Manager();
-        populateRooms();
-        Guest one = new Guest("Anthony");
-        Guest two = new Guest("Stephen");
-        Guest three = new Guest("Johan");
-        addAccount(one);
-        addAccount(two);
-        addAccount(three);
-        login(one);
-        one.addEvent("12/01/2014", "12/02/2014", 2);
-        login(two);
-        two.addEvent("12/01/2014", "12/05/2014", 7);
-        login(three);
-        three.addEvent("12/05/2014", "12/08/2014", 3);
-        three.addEvent("01/03/2014", "01/05/2014", 4);
-        manager.updateRooms(rooms);
-        
-        ManagerCalendar mc = new ManagerCalendar(manager);
-        //System.out.println(manager.displayEventsOnDay("12/05/2014"));
-        //System.out.println(two.events.toString());
-        //manager.save();
-        //manager.load();
-       /*for testing save and load functions
-         for (int i = 0; i < 20; i++) {
-         System.out.println(HotelCalifornia.rooms[i].getEvents().toString());
-         } 
-         */
+        new LoginRegistration();
     }
     
     public static void addAccount(User newUser) {

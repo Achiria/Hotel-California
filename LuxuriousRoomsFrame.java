@@ -3,6 +3,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,12 +15,12 @@ import javax.swing.*;
 
 public class LuxuriousRoomsFrame extends JFrame
 {
-   public static void main(String[] args)
-   {
-      new LuxuriousRoomsFrame("test");
-   }
+//   public static void main(String[] args)
+//   {
+//      new LuxuriousRoomsFrame("test");
+//   }
    
-   public LuxuriousRoomsFrame(final String currentUser)
+   public LuxuriousRoomsFrame(final String currentUser, final String checkIn, final String checkOut)
    {
       super("Available Luxurious Rooms");
       
@@ -57,17 +61,27 @@ public class LuxuriousRoomsFrame extends JFrame
 //         luxuriousRooms[i] = luxuriousRoomsList.get(i);
 //      }
       
-      Integer luxuriousRooms[] = new Integer[10];
-      for (int i = 0; i < luxuriousRooms.length; i++)
-      {
-         luxuriousRooms[i] = i + 11;
-      }
+//      Integer luxuriousRooms[] = new Integer[10];
+//      for (int i = 0; i < luxuriousRooms.length; i++)
+//      {
+//         luxuriousRooms[i] = i + 11;
+//      }
+      
+      
 //      String luxuriousRooms[] = new String[10];
 //      for (int i = 0; i < luxuriousRooms.length; i++)
 //      {
 //          luxuriousRooms[i] = Integer.toString(i + 11);
 //      }
-      final JList<Integer> jlist = new JList<>(luxuriousRooms);
+      
+      Integer luxuriousArray[] = new Integer[HotelCalifornia.luxuriousRooms.size()];
+      for (int i = 0; i < luxuriousArray.length; i++)
+      {
+         luxuriousArray[i] = HotelCalifornia.luxuriousRooms.get(i);
+      }
+      
+      final JList<Integer> jlist = new JList<>(luxuriousArray);
+//      final JList<Integer> jlist = new JList<>(luxuriousRooms);
       jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //      JScrollPane scrollPane = new JScrollPane(ta);
 //      scrollPane.setBounds(10, 10, 150, 350);
@@ -109,7 +123,7 @@ public class LuxuriousRoomsFrame extends JFrame
              if(jlist.getSelectedIndex()>=0)
              {
                  // update the list
-                JOptionPane.showMessageDialog(null, "Confirmed.");
+                JOptionPane.showMessageDialog(null, "Confirmed for " + currentUser + " " + checkIn + " " + checkOut + " room#: " + (jlist.getSelectedIndex() + 11));
                 Object[] options = {"Yes", "No"};
                 int choice = JOptionPane.showOptionDialog(null, "Would you like to make additional reservations?", 
                         "Message", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
@@ -122,6 +136,30 @@ public class LuxuriousRoomsFrame extends JFrame
                      } catch (ParseException ex) {
 //                         Logger.getLogger(LuxuriousRoomsFrame.class.getName()).log(Level.SEVERE, null, ex);
                      }
+                }
+                else
+                {
+                   HotelCalifornia.reservations.add(new Reservation(currentUser, "12/5/2014", "12/6/2014", jlist.getSelectedIndex() + 11));
+                   HotelCalifornia.luxuriousRooms.remove(jlist.getSelectedIndex());
+                   
+                   // write to file:
+                   String reservationInfo = currentUser + " " + checkIn + " " + checkOut + " " + (jlist.getSelectedIndex() + 11);
+                   
+                   try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("reservations.txt", true)))) 
+                     {
+                        
+                        if (!reservationInfo.isEmpty())
+                        {
+                           out.println(reservationInfo);
+                        }
+                     }
+                     catch (IOException ex) 
+                     {
+
+                     }
+                   
+                   new LuxuriousRoomsFrame(currentUser, checkIn, checkOut);
+                   dispose();
                 }
 //            luxuriousRoomsList.remove(luxuriousRoomsList.get(1));
             
