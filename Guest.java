@@ -43,13 +43,13 @@ public class Guest extends User {
         Calendar s = stringToDate(start);
         Calendar e = stringToDate(end);
         Event newEvent = new Event(s, e, roomNumber, HotelCalifornia.currentUser);
-        events.add(newEvent);
+        tempEvents.add(newEvent);
 //the exceptions will be caught in the
         HotelCalifornia.rooms[roomNumber].addEvent(newEvent);
     }
 
     public void addEvent(Event toAdd) {
-        events.add(toAdd);
+        tempEvents.add(toAdd);
         HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
     }
 
@@ -57,6 +57,12 @@ public class Guest extends User {
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).equals(e)) {
                 events.remove(events.get(i));
+            }
+        }
+        
+        for (int i = 0; i < tempEvents.size(); i++) {
+            if (tempEvents.get(i).equals(e)) {
+                tempEvents.remove(tempEvents.get(i));
             }
         }
     }
@@ -71,9 +77,5 @@ public class Guest extends User {
             stay++;
         }
         return stay < 60;
-    }
-
-    public ArrayList getEvents() {
-        return events;
     }
 }
