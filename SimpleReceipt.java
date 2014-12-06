@@ -7,7 +7,9 @@ public class SimpleReceipt implements ReceiptStrategy
 {
     @Override
     public String produce()
-    {        
-        return "User ID: " + HotelCalifornia.currentUser.userid + "\nUser name: " + "HotelCalifornia.currentUser.name" + "\nCost: " + HotelCalifornia.currentUser.getCostTemp();
+    {    
+        String toReturn = "";
+        toReturn = "User ID: " + HotelCalifornia.currentUser.userid + "\nUser name: " + HotelCalifornia.currentUser.userid + HotelCalifornia.currentUser.tempEvents.stream().map((event) -> "\nRoom: " + event.getRoom() + "\n    Date: " + event.getCheckin().toString() + " - " + event.getCheckout().toString()).reduce(toReturn, String::concat) + "\nCost: " + HotelCalifornia.currentUser.getCostTemp();     
+        return toReturn;
     }
 }
