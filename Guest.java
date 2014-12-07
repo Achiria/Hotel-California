@@ -13,6 +13,11 @@ import java.lang.IllegalArgumentException;
  * @author Anthony
  */
 public class Guest extends User {
+    
+    public Guest()
+    {
+        
+    }
 
     public Guest(String id) {
 //        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
@@ -52,7 +57,7 @@ public class Guest extends User {
         HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
     }
 
-    public void deleteEvent(Event e) throws ParseException {
+    public void deleteEvent(Event e) {
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).equals(e)) {
                 events.remove(events.get(i));

@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InfoForm extends JFrame
 {
@@ -137,7 +139,11 @@ public class InfoForm extends JFrame
             
             if (valid1== true && valid2 == true)
             {
-               new LuxuriousRoomsFrame(currentUser, t1.getText(), t2.getText());
+                 try {
+                     new LuxuriousRoomsFrame(currentUser, t1.getText(), t2.getText());
+                 } catch (ParseException ex) {
+//                     Logger.getLogger(InfoForm.class.getName()).log(Level.SEVERE, null, ex);
+                 }
                dispose();
             }
          }
@@ -217,7 +223,11 @@ public class InfoForm extends JFrame
             
             if (valid1== true && valid2 == true)
             {
-               new EconomicRoomsFrame(currentUser);
+                 try {
+                     new EconomicRoomsFrame(currentUser, t1.getText(), t2.getText());
+                 } catch (ParseException ex) {
+//                     Logger.getLogger(InfoForm.class.getName()).log(Level.SEVERE, null, ex);
+                 }
                dispose();
             }
          }

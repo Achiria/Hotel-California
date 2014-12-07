@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 public class ReceiptDisplay extends JFrame
 {
 
-    public ReceiptDisplay(String input)
+    public ReceiptDisplay(String input, String currentUser)
     {
         setSize(500, 500);
         setResizable(false);
@@ -35,7 +35,7 @@ public class ReceiptDisplay extends JFrame
             receipt = new Receipt(new ComprehensiveReceipt());
         }
 
-        TextArea t1 = new TextArea(receipt.exectuteStrategy());
+        TextArea t1 = new TextArea(receipt.exectuteStrategy(currentUser));
         t1.setBounds(0, 0, 495, 473);
         panel.add(t1);
         this.add(panel);

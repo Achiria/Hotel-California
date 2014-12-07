@@ -16,8 +16,8 @@ public class Receipt
         this.strategy = strategy;
     }
     
-    public String exectuteStrategy()
+    public String exectuteStrategy(String currentUser)
     {
-        return this.strategy.produce();
+        return this.strategy.produce(currentUser);
     }
 }

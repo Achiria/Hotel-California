@@ -19,6 +19,7 @@ public class LoginRegistration extends JFrame
    public LoginRegistration()
    {
       super("Login/Registration");
+      HotelCalifornia.tempRooms.clear();
       
       setSize(390, 300);
       setResizable(false);
@@ -88,12 +89,17 @@ public class LoginRegistration extends JFrame
                if (s.userid.equals(loginID))
                {
                   b = true;
-                  new ReservationsFrame(loginID);
+//                  new ReservationsFrame(loginID);
                   HotelCalifornia.currentUser = s;
 //                  mR.setVisible(true);
-                  dispose();
+                  
                }
             }  
+            if (b == true)
+            {
+                new ReservationsFrame(loginID);
+                dispose();
+            }
             if (loginID.equals("admin"))
             {
                b = true;

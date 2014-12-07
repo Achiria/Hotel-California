@@ -36,7 +36,7 @@ public class ReceiptDialog extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            new ReceiptDisplay("simple");
+            new ReceiptDisplay("simple", currentUser);
          }
       });
       
@@ -45,7 +45,7 @@ public class ReceiptDialog extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-            new ReceiptDisplay("comprehensive");
+            new ReceiptDisplay("comprehensive", currentUser);
          }
       });
       

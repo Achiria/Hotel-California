@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
@@ -23,14 +24,8 @@ import javax.swing.JPanel;
  */
 public class Manager extends User {
 
-    ArrayList<User> guests = new ArrayList<>();
-    Room[] rooms;
     public Manager() {
-        userid = "administrator";
-    }
-
-    public void updateRooms(Room[] rooms) {
-        this.rooms = rooms;
+        userid = "admin";
     }
 
     public void load() throws FileNotFoundException, ParseException {
@@ -41,7 +36,7 @@ public class Manager extends User {
             }
         }
         if (emptyCounter < 20) {
-            System.err.println("You have data currently stored, loading this file will erase it. Continue? Y/N: ");
+//            System.err.println("You have data currently stored, loading this file will erase it. Continue? Y/N: ");
             Scanner in = new Scanner(System.in);
             boolean answered = false;
             while (!answered) {
@@ -55,7 +50,7 @@ public class Manager extends User {
                     case "n":
                         return;
                     default:
-                        System.out.println("That command was not recognized, please try again: ");
+//                        System.out.println("That command was not recognized, please try again: ");
                 }
             }
         }
@@ -101,15 +96,15 @@ public class Manager extends User {
 
     public String displayEventsOnDay(String date) throws ParseException {
         Calendar d = stringToDate(date);
-        String answer = "";
-        for (int i = 0; i < guests.size(); i++) {
-            ArrayList<Event> tg = guests.get(i).getEvents();
+        String answer = "";     
+        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
+            ArrayList<Event> tg = HotelCalifornia.userAccounts.get(i).getEvents();
             for (int j = 0; j < tg.size(); j++) {
                 Calendar start = tg.get(j).getCheckin();
                 Calendar end = tg.get(j).getCheckout();
                 if (isBetween(start, end, d)) {
+                    
                     answer += tg.get(j).toString() + "\n";
-
                 }
             }
         }
@@ -119,33 +114,57 @@ public class Manager extends User {
     public String displayRoomsOnDay(String date) throws ParseException{
         Calendar d = stringToDate(date);
         String answer = "";
-        for(int i = 0;i<rooms.length;i++)
+        for(int i = 0;i<HotelCalifornia.rooms.length;i++)
         {
-            if(!isBooked(rooms[i], d)){
-                answer += "Room: " + rooms[i].getRoomNUmber() + "\n";
+            if(!isBooked(HotelCalifornia.rooms[i], d)){
+                answer += "Room: " + HotelCalifornia.rooms[i].getRoomNUmber() + "\n";
             }
         }
         return answer;
     }
         
-    public boolean isBooked(Room r, Calendar d)
-    {
+    public boolean isBooked(Room r, Calendar d) {
         for (int i = 0; i < r.getEvents().size(); i++) {
             Calendar s = r.getEvents().get(i).getCheckin();
             Calendar e = r.getEvents().get(i).getCheckout();
             if(isBetween(s,e,d)) return true;
             }
         return false;
-    }
+        }
     
     public boolean isBetween(Calendar start, Calendar end, Calendar date) {
         if (date.equals(start) || date.equals(end)) {
             return true;
         }
         return (date.after(start) && date.before(end));
+        
+        
     }
     
 
-
+    public boolean isBetween(Date start, Date end, Date date) {
+        if (date.equals(start) || date.equals(end)) {
+            return true;
+        }
+        return (date.after(start) && date.before(end));
+        
+        
+    }
+    public boolean isBooked(Room r, Calendar start, Calendar end)
+    {
+        for (int i = 0; i < r.getEvents().size(); i++) 
+        {
+            Calendar s = r.getEvents().get(i).getCheckin();
+            Calendar e = r.getEvents().get(i).getCheckout();
+            if (isBetween(s, e, start) || isBetween(s,e,end))
+            {
+                return true;
+            }
+//            if (isBetween(start, end, start) || isBetween(start, end, end))
+//            {
+//                return true;
+//            }
+        }
+        return false;
+    }
 }
-

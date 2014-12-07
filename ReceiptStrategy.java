@@ -9,5 +9,5 @@
  */
 public interface ReceiptStrategy
 {
-    String produce();
+    String produce(String currentUser);
 }
