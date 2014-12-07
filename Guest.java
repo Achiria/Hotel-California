@@ -1,50 +1,39 @@
-
 import java.text.ParseException;
 import java.util.*;
-import java.lang.IllegalArgumentException;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Anthony
- */
-public class Guest extends User {
-    
+public class Guest extends User 
+{
     public Guest()
     {
-        
+       
     }
-
-    public Guest(String id) {
-//        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
-//            try {
-//                if (id.equals(HotelCalifornia.userAccounts.get(i).userid)) {
-//                    throw new IllegalArgumentException();
-//                }
-//            } catch (IllegalArgumentException e) {
-//                System.err.println("That name is already taken.");
-//            }
-//        }
+    
+    public Guest(String id) 
+    {
         userid = id;
     }
 
-    public Guest(String id, String load) {
-        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) {
-            try {
-                if (id.equals(HotelCalifornia.userAccounts.get(i).userid)) {
+    public Guest(String id, String load) 
+    {
+        for (int i = 0; i < HotelCalifornia.userAccounts.size(); i++) 
+        {
+            try 
+            {
+                if (id.equals(HotelCalifornia.userAccounts.get(i).userid)) 
+                {
                     throw new IllegalArgumentException();
                 }
-            } catch (IllegalArgumentException e) {
+            } 
+            catch (IllegalArgumentException e) 
+            {
+               
             }
         }
         userid = id;
     }
 
-    public void addEvent(String start, String end, int roomNumber) throws ParseException {
+    public void addEvent(String start, String end, int roomNumber) throws ParseException 
+    {
         Calendar s = stringToDate(start);
         Calendar e = stringToDate(end);
         Event newEvent = new Event(s, e, roomNumber, HotelCalifornia.currentUser);
@@ -52,20 +41,24 @@ public class Guest extends User {
         HotelCalifornia.rooms[roomNumber].addEvent(newEvent);
     }
 
-    public void addEvent(Event toAdd) {
+    public void addEvent(Event toAdd) 
+    {
         events.add(toAdd);
         HotelCalifornia.rooms[toAdd.getRoom()].addEvent(toAdd);
     }
 
-    public void deleteEvent(Event e) {
-        for (int i = 0; i < events.size(); i++) {
+    public void deleteEvent(Event e)  
+    {
+        for (int i = 0; i < events.size(); i++) 
+        {
             if (events.get(i).equals(e)) {
                 events.remove(events.get(i));
             }
         }
     }
 
-    public boolean checkOverstay(String start, String end) throws ParseException {
+    public boolean checkOverstay(String start, String end) throws ParseException 
+    {
         int stay = 0;
         Calendar s = stringToDate(start);
         Calendar e = stringToDate(end);
@@ -77,7 +70,9 @@ public class Guest extends User {
         return stay < 60;
     }
 
-    public ArrayList getEvents() {
+    @Override
+    public ArrayList getEvents() 
+    {
         return events;
     }
 }

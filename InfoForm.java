@@ -1,19 +1,10 @@
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.text.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.*;
 
 public class InfoForm extends JFrame
-{
-//   public static void main(String[] args)
-//   {
-//      new InfoForm();
-//   }
-   
+{  
    public InfoForm(final String currentUser) throws ParseException
    {
       super("Information Form");
@@ -29,12 +20,10 @@ public class InfoForm extends JFrame
                 new ReservationsFrame(currentUser);
                 dispose();
             }
-        };
+      };
       addWindowListener(exitListener);
       
       JPanel panel = new JPanel();
-//      panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-//      panel.setLayout(new GridLayout());
       panel.setLayout(null);
       
       Date d1 = new Date();
@@ -139,10 +128,13 @@ public class InfoForm extends JFrame
             
             if (valid1== true && valid2 == true)
             {
-                 try {
+                 try 
+                 {
                      new LuxuriousRoomsFrame(currentUser, t1.getText(), t2.getText());
-                 } catch (ParseException ex) {
-//                     Logger.getLogger(InfoForm.class.getName()).log(Level.SEVERE, null, ex);
+                 } 
+                 catch (ParseException ex) 
+                 {
+                     
                  }
                dispose();
             }
@@ -197,7 +189,8 @@ public class InfoForm extends JFrame
             try 
             {
                sixtyFromCheckIn = df.parse(output);
-            } catch (ParseException ex) 
+            } 
+            catch (ParseException ex) 
             {
                
             }
@@ -221,12 +214,15 @@ public class InfoForm extends JFrame
                JOptionPane.showMessageDialog(null, "Invalid check-out date.");
             }
             
-            if (valid1== true && valid2 == true)
+            if (valid1 == true && valid2 == true)
             {
-                 try {
+                 try 
+                 {
                      new EconomicRoomsFrame(currentUser, t1.getText(), t2.getText());
-                 } catch (ParseException ex) {
-//                     Logger.getLogger(InfoForm.class.getName()).log(Level.SEVERE, null, ex);
+                 } 
+                 catch (ParseException ex) 
+                 {
+                    
                  }
                dispose();
             }

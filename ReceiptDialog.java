@@ -1,4 +1,3 @@
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +17,19 @@ public class ReceiptDialog extends JFrame
       
       setSize(380, 100);
       setResizable(false);
-      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      WindowListener exitListener = new WindowAdapter() 
+      {
+         @Override
+         public void windowClosing(WindowEvent e) 
+         {
+            new ReservationsFrame(currentUser);
+            dispose();
+         }
+      };
+      addWindowListener(exitListener);
       
-      JPanel panel = new JPanel();
-//      panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+      JPanel panel = new JPanel();;
       panel.setLayout(new GridLayout());
       JButton b1 = new JButton("Simple Receipt");
       JButton b2 = new JButton("Comphrehensive Receipt");

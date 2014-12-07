@@ -5,17 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReservationsFrame extends JFrame
 {
-//   public static void main(String[] args)
-//   {
-//      new MakeReservation();
-//   }
-   
    public ReservationsFrame(final String currentUser)
    {
       super("Reservations");
@@ -28,14 +24,20 @@ public class ReservationsFrame extends JFrame
             @Override
             public void windowClosing(WindowEvent e) 
             {
-                new LoginRegistration();
+            try 
+            {
+               new LoginRegistration();
+            } 
+            catch (FileNotFoundException ex) 
+            {
+               
+            }
                 dispose();
             }
-        };
+      };
       addWindowListener(exitListener);
       
       JPanel panel = new JPanel();
-//      panel.setLayout(new FlowLayout(FlowLayout.LEFT));
       panel.setLayout(new GridLayout());
       JButton b1 = new JButton("Make a Reservation");
       JButton b2 = new JButton("View/Cancel a Reservation");
@@ -50,10 +52,13 @@ public class ReservationsFrame extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) 
          {
-              try {
+              try 
+              {
                   new InfoForm(currentUser);
-              } catch (ParseException ex) {
-//                  Logger.getLogger(ReservationsFrame.class.getName()).log(Level.SEVERE, null, ex);
+              } 
+              catch (ParseException ex) 
+              {
+                 
               }
             dispose();
          }
